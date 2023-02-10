@@ -1,0 +1,17 @@
+---
+
+__postgresql_signing_key: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+
+__postgresql_home_dir: /var/lib/postgresql
+__postgresql_data_dir: "/var/lib/postgresql/{{ postgresql_version }}/main"
+__postgresql_bin_path: "/usr/lib/postgresql/{{ postgresql_version }}/bin"
+__postgresql_config_path: "/etc/postgresql/{{ postgresql_version }}/main"
+__postgresql_daemon: "postgresql@{{ postgresql_version }}-main"
+__postgresql_packages:
+  - postgresql-{{ postgresql_version }}
+  - postgresql-contrib
+  - libpq-dev
+__postgresql_python_library:
+  - python3-psycopg2
+  - gpg
+__postgresql_repository: "deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"

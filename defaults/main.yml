@@ -1,17 +1,14 @@
 ---
-# RHEL/CentOS only. Set a repository to use for PostgreSQL installation.
-postgresql_enablerepo: ""
 
 # Set postgresql state when configuration changes are made. Recommended values:
 # `restarted` or `reloaded`
 postgresql_restarted_state: "restarted"
 
-postgresql_python_library: python-psycopg2
 postgresql_user: postgres
 postgresql_group: postgres
 
 # `md5` or `scram-sha-256` (https://www.postgresql.org/docs/10/auth-methods.html)
-postgresql_auth_method: "{{ ansible_fips  | ternary('scram-sha-256', 'md5') }}"
+postgresql_auth_method: scram-sha-256  # md5
 
 postgresql_unix_socket_directories:
   - /var/run/postgresql
@@ -25,6 +22,8 @@ postgresql_global_config_options:
     value: '{{ postgresql_unix_socket_directories | join(",") }}'
   - option: log_directory
     value: 'log'
+  - option: password_encryption
+    value: '{{ postgresql_auth_method }}'
 
 # Host based authentication (hba) entries to be added to the pg_hba.conf. This
 # variable's defaults reflect the defaults that come with a fresh installation.
@@ -58,7 +57,6 @@ postgresql_users: []
 # - name: jdoe #required; the rest are optional
 #   password: # defaults to not set
 #   encrypted: # defaults to not set
-#   priv: # defaults to not set
 #   role_attr_flags: # defaults to not set
 #   db: # defaults to not set
 #   login_host: # defaults to 'localhost'
@@ -68,5 +66,11 @@ postgresql_users: []
 #   port: # defaults to not set
 #   state: # defaults to 'present'
 
+# Privileges on objects
+postgresql_privs: []
+
 # Whether to output user data when managing users.
-postgres_users_no_log: true
+postgresql_users_no_log: true
+postgresql_privs_no_log: true
+
+postgresql_pgpass_users: []
