@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+{% for user in postgresql_pgpass_users %}
+{{ user.hostname | default('localhost') }}:{{ user.port | default('*') }}:{{ user.database | default('*') }}:{{ user.name | default('*') }}:{{ user.password | default((['password'] | map('extract', postgresql_users | selectattr('name', 'equalto', user.name) | first)) |first) }}
+{% endfor %}
