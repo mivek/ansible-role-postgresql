@@ -1,0 +1,29 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Check that postgresql service is running
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['postgresql@15-main.service'].state == 'running'
+          - ansible_facts.services['postgresql@15-main.service'].status == 'active'
+
+    - name: Verify pgpass
+      ansible.builtin.file:
+        path: /var/lib/postgresql/.pgpass
+        state: file
+        owner: postgres
+        group: postgres
+        mode: 0600
+      register: __pgpass_file
+      check_mode: true
+
+    - name: Checks on pgpass
+      ansible.builtin.assert:
+        that:
+          - __pgpass_file.changed is false
