@@ -5,8 +5,11 @@
     state: present
 
 - name: Add postgresql signing key
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: "{{ __postgresql_signing_key }}"
+    dest: /etc/apt/trusted.gpg.d/postgresql.asc
+    mode: '0644'
+    force: true
 
 - name: Add postgresql repository
   ansible.builtin.apt_repository:
