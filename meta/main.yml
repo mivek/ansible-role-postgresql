@@ -1,31 +1,12 @@
 ---
-dependencies: []
 
 galaxy_info:
   role_name: postgresql
-  author: geerlingguy
+  author: mivek
   description: PostgreSQL server for Linux.
-  company: "Midwestern Mac, LLC"
   license: "license (BSD, MIT)"
-  min_ansible_version: 2.8
+  min_ansible_version: '2.9'
   platforms:
-    - name: ArchLinux
-      versions:
-        - all
-    - name: EL
-      versions:
-        - 7
-        - 8
-        - 9
-    - name: Fedora
-      versions:
-        - 30
-        - 31
-        - 32
-        - 33
-        - 34
-        - 35
-        - 36
     - name: Ubuntu
       versions:
         - xenial
@@ -34,8 +15,6 @@ galaxy_info:
         - jammy
     - name: Debian
       versions:
-        - wheezy
-        - jessie
         - stretch
         - buster
         - bullseye

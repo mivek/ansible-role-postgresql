@@ -1,0 +1,16 @@
+---
+
+# ----------------------------
+# Role: postgresql
+# ----------------------------
+
+postgresql_version: 15
+postgresql_databases:
+  - name: example
+postgresql_users:
+  - name: jdoe
+    password: mypassword
+
+postgresql_pgpass_users:
+  - name: jdoe
+    database: example

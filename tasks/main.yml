@@ -1,24 +1,28 @@
 ---
-# Variable configuration.
-- include_tasks: variables.yml
 
-# Setup/install tasks.
-- include_tasks: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- name: Populate variables
+  ansible.builtin.import_tasks: variables.yml
 
-- include_tasks: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
+- name: Install postgresql
+  ansible.builtin.import_tasks: setup.yml
 
-- include_tasks: initialize.yml
-- include_tasks: configure.yml
+- name: Initialize system
+  ansible.builtin.import_tasks: initialize.yml
+
+- name: Configure postgresql
+  ansible.builtin.import_tasks: configure.yml
 
 - name: Ensure PostgreSQL is started and enabled on boot.
-  service:
+  ansible.builtin.service:
     name: "{{ postgresql_daemon }}"
     state: "{{ postgresql_service_state }}"
     enabled: "{{ postgresql_service_enabled }}"
 
-# Configure PostgreSQL.
-- import_tasks: users.yml
-- import_tasks: databases.yml
-- import_tasks: users_props.yml
+- name: Configure users
+  ansible.builtin.import_tasks: users.yml
+
+- name: Configure databases
+  ansible.builtin.import_tasks: databases.yml
+
+- name: Configure user properties
+  ansible.builtin.import_tasks: users_props.yml
