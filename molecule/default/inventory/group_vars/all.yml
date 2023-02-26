@@ -14,3 +14,8 @@ postgresql_users:
 postgresql_pgpass_users:
   - name: jdoe
     database: example
+  - hostname: localhost
+    port: 5432
+    database: '*'
+    name: postgres
+    password: ''
