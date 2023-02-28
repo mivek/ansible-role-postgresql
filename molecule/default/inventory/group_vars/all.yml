@@ -5,6 +5,14 @@
 # ----------------------------
 
 postgresql_version: 15
+
+postgresql_hba_entries:
+  - {type: local, database: all, user: postgres, auth_method: peer}
+  - {type: local, database: all, user: all, auth_method: peer}
+  - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: "{{ postgresql_auth_method }}"}
+  - {type: host, database: all, user: all, address: '::1/128', auth_method: "{{ postgresql_auth_method }}"}
+  - {type: host, database: all, user: all, addresses: ['10.0.0.1/32', '10.0.0.2/32'], auth_method: "{{ postgresql_auth_method }}"}
+
 postgresql_databases:
   - name: example
 postgresql_users:
@@ -14,3 +22,8 @@ postgresql_users:
 postgresql_pgpass_users:
   - name: jdoe
     database: example
+  - hostname: localhost
+    port: 5432
+    database: '*'
+    name: postgres
+    password: ''

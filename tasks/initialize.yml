@@ -4,7 +4,7 @@
     src: postgres.sh.j2
     dest: /etc/profile.d/postgres.sh
     mode: 0644
-  notify: restart postgresql
+  notify: Restart postgresql
 
 - name: Ensure PostgreSQL data directory exists.
   ansible.builtin.file:
@@ -22,6 +22,7 @@
 - name: Ensure PostgreSQL database is initialized.
   ansible.builtin.command: "{{ postgresql_bin_path }}/initdb -D {{ postgresql_data_dir }}"
   when: not pgdata_dir_version.stat.exists
+  changed_when: false
   become: true
   become_user: "{{ postgresql_user }}"
 
