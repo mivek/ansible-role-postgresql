@@ -58,12 +58,14 @@ If you override the value of `option: log_directory` with another path, relative
       - { type: local, database: all, user: all, auth_method: peer }
       - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
       - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
+      - { type: host, database: all, user: all, addresses: ['10.0.0.1/32', '10.0.0.2/32'], auth_method: md5 }
 
 Configure [host based authentication](https://www.postgresql.org/docs/current/static/auth-pg-hba-conf.html) entries to be set in the `pg_hba.conf`. Options for entries include:
 
   - `type` (required)
   - `database` (required)
   - `user` (required)
+  - `addresses` list of address
   - `address` (one of this or the following two are required)
   - `ip_address`
   - `ip_mask`
