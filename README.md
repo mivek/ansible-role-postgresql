@@ -6,7 +6,12 @@ Installs and configures PostgreSQL server on Debian/Ubuntu servers.
 
 ## Requirements
 
-No special requirements; note that this role requires root access, so either run it in a playbook with a global `become: true`, or invoke the role in your playbook like:
+The following collections are needed to execute this role:
+
+- community.general
+- community.postgresql
+
+Note that this role requires root access, so either run it in a playbook with a global `become: true`, or invoke the role in your playbook like:
 
     - hosts: database
       become: true
