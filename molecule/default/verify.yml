@@ -27,3 +27,16 @@
       ansible.builtin.assert:
         that:
           - __pgpass_file.changed is false
+
+    - name: Check extensions exist
+      community.postgresql.postgresql_query:
+        db: example
+        query: "SELECT extname FROM pg_extension WHERE extname IN ('hstore', 'citext');"
+      become: true
+      become_user: postgres
+      register: __extensions_query
+
+    - name: Assert extensions are present
+      ansible.builtin.assert:
+        that:
+          - (__extensions_query.query_result | map(attribute='extname') | list | sort) == ['citext', 'hstore']
