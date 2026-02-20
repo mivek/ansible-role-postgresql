@@ -4,10 +4,16 @@
     name: "{{ __postgresql_requirements }}"
     state: present
 
+- name: Ensure postgresql signing key directory exists
+  ansible.builtin.file:
+    path: "{{ __postgresql_signing_key_dest | dirname }}"
+    state: directory
+    mode: '0755'
+
 - name: Add postgresql signing key
   ansible.builtin.get_url:
     url: "{{ __postgresql_signing_key }}"
-    dest: /etc/apt/trusted.gpg.d/postgresql.asc
+    dest: "{{ __postgresql_signing_key_dest }}"
     mode: '0644'
     force: true
 
