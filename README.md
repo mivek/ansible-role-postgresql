@@ -92,8 +92,11 @@ If overriding, make sure you copy all of the existing entries from `defaults/mai
         port: # defaults to not set
         owner: # defaults to postgresql_user
         state: # defaults to 'present'
+        extensions: # list of extensions to ensure present (duplicates removed)
+          - hstore
+          - citext
 
-A list of databases to ensure exist on the server. Only the `name` is required; all other properties are optional.
+A list of databases to ensure exist on the server. Only the `name` is required; all other properties are optional. The optional `extensions` list ensures extensions exist in the database.
 
     postgresql_users:
       - name: jdoe #required; the rest are optional

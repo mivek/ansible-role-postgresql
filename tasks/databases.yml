@@ -16,3 +16,10 @@
   loop: "{{ postgresql_databases }}"
   become: true
   become_user: "{{ postgresql_user }}"
+
+- name: Ensure PostgreSQL extensions are present.
+  ansible.builtin.include_tasks: extensions_db.yml
+  loop: "{{ postgresql_databases | selectattr('extensions', 'defined') | list }}"
+  loop_control:
+    loop_var: postgresql_extension_group
+  when: postgresql_databases | length > 0

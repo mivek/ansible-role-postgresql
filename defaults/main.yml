@@ -51,6 +51,9 @@ postgresql_databases: []
 #   port: # defaults to not set
 #   owner: # defaults to postgresql_user
 #   state: # defaults to 'present'
+#   extensions: # list of extension names to ensure present (duplicates removed)
+#     - hstore
+#     - citext
 
 # Users to ensure exist.
 postgresql_users: []
