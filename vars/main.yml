@@ -11,7 +11,9 @@ __postgresql_packages:
   - postgresql-{{ postgresql_version }}
   - postgresql-contrib
   - libpq-dev
-__postgresql_python_library:
+__postgresql_requirements:
   - python3-psycopg2
+  - ca-certificates
+  - gpg
 
 __postgresql_repository: "deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"

@@ -1,7 +1,7 @@
 ---
-- name: Ensure PostgreSQL Python libraries are installed.
+- name: Ensure PostgreSQL requirements are installed.
   ansible.builtin.apt:
-    name: "{{ __postgresql_python_library }}"
+    name: "{{ __postgresql_requirements }}"
     state: present
 
 - name: Add postgresql signing key
