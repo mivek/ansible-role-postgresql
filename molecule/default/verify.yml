@@ -10,8 +10,8 @@
     - name: Check that postgresql service is running
       ansible.builtin.assert:
         that:
-          - ansible_facts.services['postgresql@15-main.service'].state == 'running'
-          - ansible_facts.services['postgresql@15-main.service'].status == 'active'
+          - ansible_facts.services['postgresql@' + postgresql_version | string + '-main.service'].state == 'running'
+          - ansible_facts.services['postgresql@' + postgresql_version | string + '-main.service'].status == 'active'
 
     - name: Verify pgpass
       ansible.builtin.file:

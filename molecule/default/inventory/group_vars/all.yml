@@ -4,7 +4,7 @@
 # Role: postgresql
 # ----------------------------
 
-postgresql_version: 15
+postgresql_version: 18
 
 postgresql_hba_entries:
   - {type: local, database: all, user: postgres, auth_method: peer}
