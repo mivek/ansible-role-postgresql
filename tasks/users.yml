@@ -20,4 +20,4 @@
     owner: "{{ postgresql_user }}"
     group: "{{ postgresql_group }}"
     mode: "0600"
-  when: postgresql_pgpass_users | length
+  when: postgresql_pgpass_users | length > 0
