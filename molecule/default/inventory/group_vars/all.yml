@@ -16,9 +16,8 @@ postgresql_hba_entries:
 postgresql_databases:
   - name: example
     extensions:
-      - hstore
-      - hstore
-      - citext
+      - name: hstore
+      - name: citext
 postgresql_users:
   - name: jdoe
     password: mypassword
