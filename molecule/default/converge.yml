@@ -4,4 +4,4 @@
   become: true
 
   roles:
-    - role: mivek.postgresql
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"

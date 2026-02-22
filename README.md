@@ -93,10 +93,17 @@ If overriding, make sure you copy all of the existing entries from `defaults/mai
         owner: # defaults to postgresql_user
         state: # defaults to 'present'
         extensions: # list of extensions to ensure present (duplicates removed)
-          - hstore
-          - citext
+          - name: hstore
+          - name: citext
+          - name: postgis
+            cascade: true  # automatically drop dependent objects (when state is absent)
 
-A list of databases to ensure exist on the server. Only the `name` is required; all other properties are optional. The optional `extensions` list ensures extensions exist in the database.
+A list of databases to ensure exist on the server. Only the `name` is required; all other properties are optional. 
+
+The optional `extensions` list ensures extensions exist in the database. Each extension must be specified as a dictionary with the following properties:
+
+  - `name` (required) - The name of the extension
+  - `cascade` (optional) - When `true`, automatically drops objects that depend on the extension when removing it (only applies when database `state` is `absent`). Defaults to PostgreSQL's default behavior when not specified.
 
     postgresql_users:
       - name: jdoe #required; the rest are optional
